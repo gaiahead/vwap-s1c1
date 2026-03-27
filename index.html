@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VWAP 추세 모니터</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3"></script>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <header>
+    <h1>📊 VWAP 추세 모니터</h1>
+    <p>Volume Weighted Average Price · <span id="updated"></span></p>
+  </header>
+  <div class="chart-section">
+    <div class="chart-wrap">
+      <canvas id="chart-structure"></canvas>
+    </div>
+  </div>
+  <div class="groups" id="groups"></div>
+  <div class="sci-section" id="sci-section" style="display:none">
+    <div class="sci-title">📐 SCI (Slope Consistency Index)</div>
+    <table class="sci-table">
+      <thead>
+        <tr>
+          <th>종목</th>
+          <th>SCI</th>
+          <th>10d</th><th>20d</th><th>30d</th><th>40d</th><th>50d</th>
+          <th>60d</th><th>70d</th><th>80d</th><th>90d</th><th>100d</th>
+        </tr>
+      </thead>
+      <tbody id="sci-body"></tbody>
+    </table>
+  </div>
+  <div style="padding:16px 28px 32px;border-top:1px solid #1e2535;margin-top:8px">
+    <div style="font-size:0.72rem;font-weight:700;color:#334155;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px">
+      📐 SCI — Slope Consistency Index
+    </div>
+    <div style="font-size:0.75rem;color:#475569;margin-bottom:10px">
+      투자금 = 기준값 × SCI&nbsp;|&nbsp;SCI = Σ(가중치 × 행 점수) / Σ(가중치)&nbsp;|&nbsp;지수 감소 0.75
+    </div>
+    <div style="font-size:0.73rem;color:#334155;margin-bottom:10px">
+      비교 기준: slope &gt; endpoint × 1% (10d당 ≈ 주간 0.5% = 연 30%)&nbsp;|
+      행 점수 = 100개 슬로프 중 기준 초과 비율 (가중 평균)
+    </div>
+    <table style="border-collapse:collapse;font-size:0.72rem;width:100%;max-width:700px">
+      <thead>
+        <tr>
+          <th style="padding:4px 12px;text-align:left;color:#334155;border-bottom:1px solid #1e2535">Endpoint</th>
+          <th style="padding:4px 12px;text-align:right;color:#334155;border-bottom:1px solid #1e2535">가중치</th>
+          <th style="padding:4px 12px;text-align:right;color:#334155;border-bottom:1px solid #1e2535">비중</th>
+          <th style="padding:4px 12px;text-align:left;color:#1e2535;border-bottom:1px solid #1e2535;padding-left:16px">시작점 범위</th>
+        </tr>
+      </thead>
+      <tbody id="sci-weight-table"></tbody>
+    </table>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
